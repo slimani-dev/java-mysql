@@ -1,47 +1,46 @@
 import com.mysql.jdbc.Driver;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class Main {
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
 
 
-        try {
+        ArrayList<User> userArrayList = new ArrayList<>();
+
+        //User mohamed = User.getUserById(1);
+        //System.out.println(mohamed);
+
+        /*User hiba = new User("hiba","hiba@utc-dz.com");
+        hiba.save();
+        System.out.println(hiba);*/
+
+        /*User chimaa = User.getUserById(2);
+        System.out.println(chimaa);
+
+        chimaa.setName("chimaa");
+        chimaa.save();
+
+        chimaa = User.getUserById(2);
+        System.out.println(chimaa);*/
 
 
-            Statement stmt  = conn.createStatement();
 
+        User user4 = User.getUserById(3);
+        user4.delete();
+        System.out.println(user4);
 
+        userArrayList = User.getUsers();
+        System.out.println(userArrayList);
 
-            String sql = "SELECT * FROM test.users";
+        user4.save();
+        System.out.println(user4);
 
-            ResultSet rs    = stmt.executeQuery(sql);
-
-            while (rs.next()) {
-                System.out.println(rs.getString("id") + "\t" +
-                        rs.getString("name")  + "\t" +
-                        rs.getString("email"));
-            }
-
-            try{
-                rs.close();
-                stmt.close();
-            } catch(SQLException e) {
-                System.out.println(e.getMessage());
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (conn != null)
-                    conn.close();
-            } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
-            }
-        }
+        userArrayList = User.getUsers();
+        System.out.println(userArrayList);
 
     }
 
