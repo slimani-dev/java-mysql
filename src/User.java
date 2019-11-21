@@ -26,24 +26,30 @@ public class User {
     }
 
     private static boolean connect() throws SQLException {
-        connection = new DBConnection();
-        return connection.conect();
+        if (connection == null) {
+
+            connection = new DBConnection();
+            return connection.conect();
+
+        }
+        return connection.connected();
     }
 
     public boolean save() throws SQLException {
-        if (this.id != -1) {
+        if (this.id != -1 && !this.deleted) {
             return this.update();
         }
-
 
         connect();
         String[] values = new String[]{this.name, this.email};
         int id = connection.insert(TABLE_NAME, SAVE_COLUMNS, values);
+
         if (id != -1) {
             this.id = id;
             this.deleted = false;
             return true;
         }
+
         return false;
     }
 
@@ -58,7 +64,7 @@ public class User {
         return false;
     }
 
-    public boolean delete() {
+    public void delete() {
         try {
             connect();
             try {
@@ -71,7 +77,6 @@ public class User {
             e.printStackTrace();
         }
 
-        return this.deleted;
     }
 
     static User getUserById(int id) throws SQLException {

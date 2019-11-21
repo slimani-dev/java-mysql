@@ -25,6 +25,10 @@ public class DBConnection {
         return conn != null;
     }
 
+    public boolean connected(){
+        return this.conn != null;
+    }
+
     public ArrayList<String[]> select(String tableName,String[] columns,String whereColumn,String whereOperator,String where) throws SQLException {
 
         Statement stmt  = conn.createStatement();

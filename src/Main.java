@@ -29,7 +29,7 @@ public class Main {
 
 
 
-        User user4 = User.getUserById(3);
+        User user4 = User.getUserById(1);
         user4.delete();
         System.out.println(user4);
 
